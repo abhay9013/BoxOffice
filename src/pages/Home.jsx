@@ -1,32 +1,22 @@
 import { useState } from 'react';
 import { searchShows, searchForPeople } from './../api/tvmaze';
+import SearchForm from '../components/SearchForm';
 
 const Home = () => {
-  const [searchStr, setSearchStr] = useState('');
   const [apiData, setApiData] = useState(null);
   const [apiDataError, setapiDataError] = useState(null);
-  const [searchOptn, setSearchOptn] = useState('shows');
 
-  const onSearchIpChange = ev => {
-    setSearchStr(ev.target.value);
-  };
-  const onradiochng = ev => {
-    setSearchOptn(ev.target.value);
-  };
-
-  const onSearch = async ev => {
-    ev.preventDefault();
-
+  const onSearch = async ({ q, searchOptn }) => {
     try {
       setapiDataError(null);
 
+      let result;
       if (searchOptn === 'shows') {
-        const result = await searchShows(searchStr);
-        setApiData(result);
+        result = await searchShows(q);
       } else {
-        const result = await searchForPeople(searchStr);
-        setApiData(result);
+        result = await searchForPeople(q);
       }
+      setApiData(result);
     } catch (error) {
       setapiDataError(error);
     }
@@ -48,31 +38,7 @@ const Home = () => {
 
   return (
     <div>
-      <form onSubmit={onSearch}>
-        <input type="text" value={searchStr} onChange={onSearchIpChange} />{' '}
-        <label>
-          Shows
-          <input
-            type="radio"
-            name="search-option"
-            value="shows"
-            checked={searchOptn === 'shows'}
-            onChange={onradiochng}
-          ></input>
-        </label>
-        <label>
-          Actors
-          <input
-            type="radio"
-            name="search-option"
-            value="actors"
-            checked={searchOptn === 'actors'}
-            onChange={onradiochng}
-          ></input>
-        </label>
-        {/*value here specify two way data binding*/}
-        <button type="submit">Search</button>
-      </form>
+      <SearchForm onSearch={onSearch} />
       <div>{renderApidata()}</div>
     </div>
   );
