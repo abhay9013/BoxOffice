@@ -28,13 +28,13 @@ const ShowCard = ({ name, image, id, summary, onStarMeClick, isStarred }) => {
   return (
     <SearchCard>
       <SearchImgWrapper>
-        <img src={image} alt={name} />
+        <img src={image ? image : '/no-image'} alt={name} />
       </SearchImgWrapper>
       <h1>{name}</h1>
       <p>{summaryStripped}</p>
 
       <ActionSection>
-        <Link href={`/show/${id}`} target="_blank" rel="noreferrer">
+        <Link to={`/show/${id}`} target="_blank" rel="noreferrer">
           Read more
         </Link>
         <StarBtn ref={starBtnRef} type="button" onClick={handleStarClick}>

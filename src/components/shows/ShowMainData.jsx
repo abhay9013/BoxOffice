@@ -6,7 +6,7 @@ const ShowMainData = ({ image, name, rating, summary, genres }) => {
   return (
     <MainDataWrapper>
       <div className="img-wrap">
-        <img src={image ? image.original : '/no-image'} alt={name} />
+        <img src={image ? image.original : './no-image'} alt={name} />
       </div>
 
       <DataSection>
