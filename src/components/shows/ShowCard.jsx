@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { SearchImgWrapper, SearchCard } from '../common/SearchCard';
 import { StarIcon } from '../common/StarIcon';
+import NotFound from '../../no-image.png';
 
 const ShowCard = ({ name, image, id, summary, onStarMeClick, isStarred }) => {
   const summaryStripped = summary
@@ -28,7 +29,7 @@ const ShowCard = ({ name, image, id, summary, onStarMeClick, isStarred }) => {
   return (
     <SearchCard>
       <SearchImgWrapper>
-        <img src={image ? image : '/no-image'} alt={name} />
+        <img src={image ? image : NotFound} alt={name} />
       </SearchImgWrapper>
       <h1>{name}</h1>
       <p>{summaryStripped}</p>
